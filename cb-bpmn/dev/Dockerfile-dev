@@ -1,0 +1,36 @@
+FROM node:9.11.1-wheezy
+MAINTAINER Augusto Pissarra
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y xpdf
+RUN apt-get install -y antiword
+RUN apt-get install -y unrtf
+RUN apt-get install -y tesseract-ocr
+RUN apt-get install -y tesseract-ocr-por
+RUN apt-get install -y graphicsmagick
+RUN apt-get install -y ghostscript
+RUN apt-get install -y poppler-utils
+RUN apt-get install -y pdftk
+RUN apt-get install -y libreoffice
+
+# Enviroment variables
+ENV HOMEDIR /usr/src/app
+RUN mkdir -p ${HOMEDIR}
+WORKDIR ${HOMEDIR}
+
+# install all dependencies
+ARG NPM_TOKEN
+COPY .npmrc .npmrc
+COPY package.json package.json
+RUN npm install
+RUN rm -f .npmrc
+
+COPY start.js start.js
+COPY config.js config.js
+COPY domains.js domains.js
+COPY routes routes
+COPY domains domains
+
+EXPOSE 3456
+CMD ["node", "start.js", "-s", "docker-dev"]
+

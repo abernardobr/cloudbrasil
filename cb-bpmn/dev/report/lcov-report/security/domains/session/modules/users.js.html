@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for security/domains/session/modules/users.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">security/domains/session/modules/</a> users.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/226</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/163</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/226</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >const _ = require('lodash');</span>
+<span class="cstat-no" title="statement not covered" >const HD = require('@docbrasil/tools');</span>
+<span class="cstat-no" title="statement not covered" >const JWT = require('jsonwebtoken');</span>
+<span class="cstat-no" title="statement not covered" >const Async = require('async');</span>
+&nbsp;
+class Users {
+    constructor<span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        self.genders = {</span>
+            male: 1,
+            female: 2
+        };
+<span class="cstat-no" title="statement not covered" >        self.roles = {</span>
+            NOROLE: 0,
+            USER: 2,
+            VENDOR: 4,
+            ADMINISTRATOR: 16,
+            SU: 32
+        };
+<span class="cstat-no" title="statement not covered" >        self.workflowTypes = {</span>
+            NONE: 0,
+            USER_REGISTRATION: 1,
+            RECRUITER_REGISTRATION: 2,
+            PROFESSIONAL_REGISTRATION: 3
+        };
+<span class="cstat-no" title="statement not covered" >        self.statusTypes = {</span>
+            NONE: -1,
+            CREATED: 0,
+            VALIDATING_EMAIL: 1,
+            VALIDATE: 2,
+            VALIDATING: 3,
+            APPROVED: 4,
+            REJECTED: 5,
+            BLOCKED: 6,
+            UNPUBLISHED: 7,
+            CLOSED: 8
+        };
+<span class="cstat-no" title="statement not covered" >        self.agendaConfigDefault = [</span>
+            {name: HS.get('Color 1'), color: 'event_color_1', canRemove: true},
+            {name: HS.get('Color 2'), color: 'event_color_2', canRemove: true},
+            {name: HS.get('Color 3'), color: 'event_color_3', canRemove: true},
+            {name: HS.get('Color 4'), color: 'event_color_4', canRemove: true},
+            {name: HS.get('Color 5'), color: 'event_color_5', canRemove: true},
+            {name: HS.get('Color 6'), color: 'event_color_6', canRemove: true},
+            {name: HS.get('Color 7'), color: 'event_color_7', canRemove: true},
+            {name: HS.get('No color'), color: 'event_color_0', canRemove: false}
+        ];
+<span class="cstat-no" title="statement not covered" >        let CRUDMongo = HD.crudmongo();</span>
+<span class="cstat-no" title="statement not covered" >        self.crudmongo = new CRUDMongo({</span>
+            timer: true,
+            name: 'users'
+        });
+<span class="cstat-no" title="statement not covered" >        let schema = {</span>
+            name: {type: String, index: true, required: true},
+            password: {type: String, required: true},
+            role: {type: [Number], required: true, default: [userRoles.USER]},
+            block: {type: Boolean, required: true, default: false},
+            email: {type: String, index: true, unique: true, required: true},
+            sendEmail: {type: Boolean, default: false},
+            emailVerified: {type: Boolean, default: false},
+            emailVerToken: String,
+            registerDate: {type: Date, required: true, default: Date.now},
+            activationDate: Date,
+            lastVisitDate: Date,
+            extraEmails: {type: Array},
+            dob: {type: Date, index: true},
+            idcard: {type: String, index: true},
+            phone: {type: String},
+            phone2: {type: String},
+            phone3: {type: String},
+            securityAnswer: {type: String, required: true, index: true},
+            securityQuestion: {type: String, required: true, index: true},
+            gender: {type: Number},
+            occupation: {type: String, index: true},
+            street: {type: String},
+            complement: {type: String},
+            number: {type: String},
+            district: {type: String},
+            aggregateCity: {type: String, index: true},
+            aggregateState: {type: String, index: true},
+            areaCode: {type: String, index: true},
+            city: {type: String, index: true},
+            country: {type: String, index: true, default: "Brasil"},
+            zipcode: {type: String, index: true},
+            status: {type: Number, required: true, index: true, default: self.statusTypes.CREATED},
+            workflow: {type: Number, required: true, index: true, default: self.workflowTypes.NONE},
+            userAccept: {type: Boolean, default: false},
+            config: {},
+            agendaConfig: {type: Array, default: self.agendaConfigDefault},
+            maritalStatus: {type: Number, index: true},
+            skipValidation: {type: Boolean, required: true, default: false},
+            site: {type: String},
+            facebook: {type: String},
+            companyDepartment: {type: String, index: true},
+            aggregateIdx: {
+                type: [
+                    {
+                        type: {type: String, required: true},
+                        value: {type: String, index: true, required: true}
+                    }
+                ], index: true
+            },
+            searchIdx: {type: [], index: true},
+            modified: {type: Date, fulltext: false},
+            privateOrProfessional: {type: Number}          // CONST.users.type
+        };
+<span class="cstat-no" title="statement not covered" >        self.crudmongo.setSchema(schema);</span>
+<span class="cstat-no" title="statement not covered" >        self.crudmongo.createModel();</span>
+    }
+&nbsp;
+    // ****************************************************
+    // ***** PASSWORD AND LOGIN FUNCTIONS INTERFACES ******
+    // ****************************************************
+&nbsp;
+    session<span class="fstat-no" title="function not covered" >(request, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        const serverConfig = HD.serverconfig();</span>
+<span class="cstat-no" title="statement not covered" >        let funcs = [];</span>
+<span class="cstat-no" title="statement not covered" >        let loggedUser = null;</span>
+<span class="cstat-no" title="statement not covered" >        let canStillBeLogedIn = false;</span>
+<span class="cstat-no" title="statement not covered" >        let isAdmin = request.source === 'admin';</span>
+&nbsp;
+        // get user
+<span class="cstat-no" title="statement not covered" >        funcs.push((next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(request.auth.isAuthenticated &amp;&amp; request.auth.credentials &amp;&amp; request.auth.credentials.user) {</span>
+<span class="cstat-no" title="statement not covered" >                loggedUser = request.auth.credentials.user;</span>
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                let id = null;</span>
+<span class="cstat-no" title="statement not covered" >                if (request.auth &amp;&amp; request.auth.credentials &amp;&amp; request.auth.credentials.id)</span>
+<span class="cstat-no" title="statement not covered" >                    id = request.auth.credentials.id;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                    self.getSessionUser(request, id, (err, retSessionUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        loggedUser = retSessionUser;</span>
+<span class="cstat-no" title="statement not covered" >                        next();</span>
+                    });
+                } else {
+<span class="cstat-no" title="statement not covered" >                    next();</span>
+                }
+            }
+        });
+&nbsp;
+        // check if can still be logged in
+<span class="cstat-no" title="statement not covered" >        funcs.push((next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(loggedUser !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                self.verifyCanLogin(isAdmin, loggedUser, (canLoginRet) =&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                    let canLogin = canLoginRet;</span>
+<span class="cstat-no" title="statement not covered" >                    canStillBeLogedIn = canLogin &amp;&amp; canLogin.auth ? canLogin.auth : false;</span>
+<span class="cstat-no" title="statement not covered" >                    next();</span>
+                });
+            } else
+<span class="cstat-no" title="statement not covered" >                next();</span>
+        });
+&nbsp;
+        // finalize
+<span class="cstat-no" title="statement not covered" >        Async.series(funcs, (err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            canStillBeLogedIn = err ? false : canStillBeLogedIn;</span>
+<span class="cstat-no" title="statement not covered" >            let retAuth = {auth: canStillBeLogedIn};</span>
+<span class="cstat-no" title="statement not covered" >            if(canStillBeLogedIn) {</span>
+<span class="cstat-no" title="statement not covered" >                retAuth.user = loggedUser;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            cb(err, retAuth);</span>
+&nbsp;
+        });
+    }
+&nbsp;
+    isLogged<span class="fstat-no" title="function not covered" >(request, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        let funcs = [];</span>
+<span class="cstat-no" title="statement not covered" >        let loggedUser = null;</span>
+<span class="cstat-no" title="statement not covered" >        let canStillBeLogedIn = false;</span>
+<span class="cstat-no" title="statement not covered" >        let isAdmin = request.source === 'admin';</span>
+&nbsp;
+        // get user
+<span class="cstat-no" title="statement not covered" >        funcs.push((next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(request.auth.isAuthenticated &amp;&amp; request.auth.credentials &amp;&amp; request.auth.credentials.user) {</span>
+<span class="cstat-no" title="statement not covered" >                loggedUser = request.auth.credentials.user;</span>
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                let id = null;</span>
+<span class="cstat-no" title="statement not covered" >                if (request.auth &amp;&amp; request.auth.session &amp;&amp; request.auth.session.id)</span>
+<span class="cstat-no" title="statement not covered" >                    id = request.auth.session.id;</span>
+                else <span class="cstat-no" title="statement not covered" >if (request.auth &amp;&amp; request.auth.artifacts &amp;&amp; request.auth.artifacts.id)</span>
+<span class="cstat-no" title="statement not covered" >                    id = request.auth.artifacts.id;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                    HD.session().get(id, (err, retSessionUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        loggedUser = retSessionUser;</span>
+<span class="cstat-no" title="statement not covered" >                        next();</span>
+                    });
+                } else {
+<span class="cstat-no" title="statement not covered" >                    next();</span>
+                }
+            }
+        });
+&nbsp;
+        // check if can still be logged in
+<span class="cstat-no" title="statement not covered" >        funcs.push((next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(loggedUser !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                self.verifyCanLogin(isAdmin, loggedUser, (canLoginRet) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    let canLogin = canLoginRet;</span>
+<span class="cstat-no" title="statement not covered" >                    canStillBeLogedIn = canLogin &amp;&amp; canLogin.auth ? canLogin.auth : false;</span>
+<span class="cstat-no" title="statement not covered" >                    next();</span>
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            }
+        });
+&nbsp;
+        // finalize
+<span class="cstat-no" title="statement not covered" >        Async.series(funcs, (err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            canStillBeLogedIn = err ? false : canStillBeLogedIn;</span>
+<span class="cstat-no" title="statement not covered" >            let retAuth = { auth: canStillBeLogedIn };</span>
+<span class="cstat-no" title="statement not covered" >            if(canStillBeLogedIn)</span>
+<span class="cstat-no" title="statement not covered" >                retAuth.user = loggedUser;</span>
+<span class="cstat-no" title="statement not covered" >            cb(retAuth);</span>
+        });
+    }
+&nbsp;
+    login<span class="fstat-no" title="function not covered" >(request, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            self.authenticate(request.payload.username, request.payload.password, (retUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if(retUser) {</span>
+<span class="cstat-no" title="statement not covered" >                    let isAdmin = request.source === 'admin';</span>
+<span class="cstat-no" title="statement not covered" >                    self.verifyCanLogin(isAdmin, retUser, (canLoginRet) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        let canLogin = canLoginRet;</span>
+<span class="cstat-no" title="statement not covered" >                        if (canLogin.auth) {</span>
+<span class="cstat-no" title="statement not covered" >                            let sessionId = HD.utils().random.guid();</span>
+<span class="cstat-no" title="statement not covered" >                            self.getLoginUser(request, retUser._id, retUser.username, sessionId, (err, retSessionUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                                if (err || retSessionUser === null) {</span>
+<span class="cstat-no" title="statement not covered" >                                    cb({auth: false});</span>
+                                } else {
+<span class="cstat-no" title="statement not covered" >                                    HD.session().set(sessionId, retSessionUser, (err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                                        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                                            cb({ auth: false });</span>
+                                        } else {
+<span class="cstat-no" title="statement not covered" >                                            cb({ auth: true, user: retSessionUser });</span>
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            cb(canLogin);</span>
+                        }
+                    });
+                } else {
+<span class="cstat-no" title="statement not covered" >                    cb({ auth: false });</span>
+                }
+            });
+        } catch(ex) {
+<span class="cstat-no" title="statement not covered" >            console.log(ex);</span>
+<span class="cstat-no" title="statement not covered" >            cb({ auth: false })</span>
+        }
+    }
+&nbsp;
+    logout<span class="fstat-no" title="function not covered" >(request, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            var id = request.auth &amp;&amp; request.auth.credentials &amp;&amp; request.auth.credentials.id ? request.auth.credentials &amp;&amp; request.auth.credentials.id : null;</span>
+<span class="cstat-no" title="statement not covered" >            if(id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                HD.session().get(id, (err, retSessionUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    if (!err &amp;&amp; retSessionUser !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                        self.cleanSessionId(retSessionUser._id, (err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                            Domains.session().drop(id, () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                                cb({ response: "OK" });</span>
+                            });
+                        });
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        cb({ response: "OK" });</span>
+                    }
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                cb({ response: "OK" });</span>
+            }
+        } catch(ex){
+<span class="cstat-no" title="statement not covered" >            cb({ response: "OK" });</span>
+        }
+    }
+&nbsp;
+    // *****************************************
+    // ***** PASSWORD AND LOGIN FUNCTIONS ******
+    // *****************************************
+&nbsp;
+    cleanCache<span class="fstat-no" title="function not covered" >(userId) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        HD.cache().del('users', userId);</span>
+    }
+&nbsp;
+    updateUserModifiedDate<span class="fstat-no" title="function not covered" >(userId, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        if(userId !== null) {</span>
+<span class="cstat-no" title="statement not covered" >            HD.cache().get('users', userId, (err, retData) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if(!err &amp;&amp; retData !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                    self.setUserUpdate(retData);</span>
+<span class="cstat-no" title="statement not covered" >                    cb(err, retData);</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    self.crudmongo.DIRECT().findById(userId).lean().exec((err, data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        if (!err &amp;&amp; data !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                            self.setUserUpdate(data);</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        cb(err, data);</span>
+                    });
+                }
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >            cb(null, null);</span>
+        }
+    }
+&nbsp;
+    setUserUpdate<span class="fstat-no" title="function not covered" >(user) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        if(!user || user === null || _.isUndefined(user) || !user._id) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log ("user not informed when updating time");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if(user.sessionId === '' || _.isUndefined(user.sessionId)) {</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let userId = user._id.toString();</span>
+<span class="cstat-no" title="statement not covered" >        if(!userId || userId === null || _.isUndefined(userId)) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log ("userId not informed when updating time");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let userData = user.toObject ? user.toObject() : user;</span>
+<span class="cstat-no" title="statement not covered" >        users.populateUser(null, null, userData, (err, popUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(!err &amp;&amp; popUser !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                let serverconfig = HD.serverconfig();</span>
+<span class="cstat-no" title="statement not covered" >                let unsealed = JWT.verify(user.sessionId, serverconfig.jwt.key, serverconfig.jwt.options);</span>
+<span class="cstat-no" title="statement not covered" >                HD.session().set(unsealed.id, popUser);</span>
+<span class="cstat-no" title="statement not covered" >                self.cleanCache(popUser._id.toString());</span>
+<span class="cstat-no" title="statement not covered" >                HD.cache.set('users', popUser._id.toString(), popUser);</span>
+            }
+        });
+    }
+&nbsp;
+    updateSessionId<span class="fstat-no" title="function not covered" >(userId, sessionId, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        self.crudmongo.DIRECT().findByIdAndUpdate(userId, { sessionId: sessionId }, { new: true }).lean().exec((err, retUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            self.populateUser(err, null, retUser, (err, user) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >               cb(err ? HD.errors.invalidUser : err, user);</span>
+            });
+        });
+    }
+&nbsp;
+    cleanSessionId<span class="fstat-no" title="function not covered" >(id, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        self.crudmongo.DIRECT().findByIdAndUpdate(id, { sessionId: '' }, (err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            cb(err);</span>
+        });
+    }
+&nbsp;
+    populateUser<span class="fstat-no" title="function not covered" >(err, request, user, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        if(err) {</span>
+<span class="cstat-no" title="statement not covered" >            cb(err, user);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        let funcs = [];</span>
+&nbsp;
+        // config
+<span class="cstat-no" title="statement not covered" >        funcs.push((next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            HD.config().getGlobal(<span class="fstat-no" title="function not covered" >function(err, config) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if(!err &amp;&amp; config != null) {</span>
+<span class="cstat-no" title="statement not covered" >                    user.globalConfig = config</span>
+                }
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            });
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        Async.parallel(funcs, <span class="fstat-no" title="function not covered" >function(err) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cb(err, user);</span>
+        });
+    }
+&nbsp;
+    getSessionUser<span class="fstat-no" title="function not covered" >(request, sessionId, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        HD.session().get(sessionId, (err, retSessionUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if (!err &amp;&amp; retSessionUser !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                self.populateUser(err, request, retSessionUser, (err, retPopulatedUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    cb(err ? HD.errors.invalidUser : err, retPopulatedUser);</span>
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                cb(err, retSessionUser);</span>
+            }
+        });
+    }
+&nbsp;
+    getLoginUser<span class="fstat-no" title="function not covered" >(request, userId, username, sessionId, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        const serverconfig = HD.serverconfig();</span>
+<span class="cstat-no" title="statement not covered" >        let session = {</span>
+            userId: userId,
+            id: sessionId,
+            username: username,
+            source: request.source
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let sealed = JWT.sign(session, serverconfig.jwt.key, serverconfig.jwt.options);</span>
+<span class="cstat-no" title="statement not covered" >        if(sealed !== null) {</span>
+<span class="cstat-no" title="statement not covered" >            self.crudmongo.DIRECT().findByIdAndUpdate(userId, { sessionId: sealed }, { new: true }).lean().exec((err, user) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if (!err &amp;&amp; user !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                    users.populateUser(err, request, user, <span class="fstat-no" title="function not covered" >function (err, user) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if(!err &amp;&amp; user !== null)</span>
+<span class="cstat-no" title="statement not covered" >                            HD.session().setSessionRequest(request, user, session);</span>
+<span class="cstat-no" title="statement not covered" >                        cb(err ? Boom.unauthorized('Invalid user or password.') : err, user);</span>
+                    });
+                } else
+<span class="cstat-no" title="statement not covered" >                    cb(Boom.unauthorized('Invalid user or password.'), user);</span>
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >            cb(Boom.unauthorized('Invalid user or password.'), null);</span>
+        }
+    }
+&nbsp;
+    getPassword<span class="fstat-no" title="function not covered" >(value, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        let retUser = {};</span>
+<span class="cstat-no" title="statement not covered" >        let idcard = HD.utils().format.prepareIdCard(value);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let _getByUsername = (next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(_.isEmpty(retUser)) {</span>
+<span class="cstat-no" title="statement not covered" >                self.crudmongo.DIRECT().findOne({ username: value }).lean().exec(<span class="fstat-no" title="function not covered" >function (err, user) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (err || user === null) {</span>
+<span class="cstat-no" title="statement not covered" >                        next(Boom.unauthorized('Invalid user or password.'));</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        retUser = user;</span>
+<span class="cstat-no" title="statement not covered" >                        next();</span>
+                    }
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            }
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let _getByEmail = (next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if(_.isEmpty(retUser)) {</span>
+<span class="cstat-no" title="statement not covered" >                self.crudmongo.DIRECT().findOne({ email: value }).lean().exec(<span class="fstat-no" title="function not covered" >function (err, user) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (err || user === null) {</span>
+<span class="cstat-no" title="statement not covered" >                        next(Boom.unauthorized('Invalid user or password.'));</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        retUser = user;</span>
+<span class="cstat-no" title="statement not covered" >                        next();</span>
+                    }
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            }
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let funcs = [];</span>
+<span class="cstat-no" title="statement not covered" >        if(value.indexOf('@') !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >            funcs = [_getByEmail, _getByUsername];</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            funcs = [_getByUsername, _getByEmail];</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        Async.series(funcs, <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cb(err, retUser);</span>
+        });
+    }
+&nbsp;
+    authenticate<span class="fstat-no" title="function not covered" >(username, password, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        self.getPassword(username, <span class="fstat-no" title="function not covered" >function(err, user) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err || user === null) {</span>
+<span class="cstat-no" title="statement not covered" >                cb(false);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                if(HD.utils().password.compare(password, user.password)) {</span>
+<span class="cstat-no" title="statement not covered" >                    cb(user);</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    cb(false);</span>
+                }
+            }
+        });
+    }
+&nbsp;
+    canLoginSync<span class="fstat-no" title="function not covered" >(isAdmin, user) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        if(isAdmin) {</span>
+<span class="cstat-no" title="statement not covered" >            return user &amp;&amp; user.role &amp;&amp; ((user.role.indexOf(self.roles.SU) !== -1) || (user.role.indexOf(self.roles.ADMINISTRATOR) !== -1));</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    }
+&nbsp;
+    verifyCanLogin<span class="fstat-no" title="function not covered" >(isAdmin, user, cb) {</span>
+<span class="cstat-no" title="statement not covered" >        const self = this;</span>
+<span class="cstat-no" title="statement not covered" >        if(!self.canLoginSync(isAdmin, user, orgId)) {</span>
+<span class="cstat-no" title="statement not covered" >            return cb({ auth: false });</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let canLogin = { auth: true };</span>
+<span class="cstat-no" title="statement not covered" >        if(_.isUndefined(user.block) || user.block) {</span>
+<span class="cstat-no" title="statement not covered" >            canLogin = { auth: false };</span>
+        } else <span class="cstat-no" title="statement not covered" >if(!user.emailVerified) {</span>
+<span class="cstat-no" title="statement not covered" >            canLogin = { auth: false, needsVerification: { id: user._id, email: user.email } };</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return cb(canLogin);</span>
+    }
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >let users = new Users();</span>
+<span class="cstat-no" title="statement not covered" >module.exports = users;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Jul 06 2017 23:25:01 GMT+0100 (IST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

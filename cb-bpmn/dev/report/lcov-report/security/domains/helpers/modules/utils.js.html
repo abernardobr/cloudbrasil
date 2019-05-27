@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for security/domains/helpers/modules/utils.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">security/domains/helpers/modules/</a> utils.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.04% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>79/94</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.46% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>33/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.04% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>79/94</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">274×</span>
+<span class="cline-any cline-yes">274×</span>
+<span class="cline-any cline-yes">274×</span>
+<span class="cline-any cline-yes">274×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">41×</span>
+<span class="cline-any cline-yes">41×</span>
+<span class="cline-any cline-yes">41×</span>
+<span class="cline-any cline-yes">271×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">41×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">937×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">117×</span>
+<span class="cline-any cline-yes">117×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">77×</span>
+<span class="cline-any cline-yes">64×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const _ = require('lodash');
+const Sanitizer = require('sanitizer');
+const Traverse = require('traverse');
+const Bcrypt = require('bcrypt-nodejs');
+&nbsp;
+/* eslint-disable no-param-reassign */
+// TOTimer
+class TOTimer {
+    constructor(options) {
+        const self = this;
+        self.options = _.assign({
+            precision: 3
+        }, options);
+        self.marks = [];
+        self.start = 0;
+    }
+&nbsp;
+    init() {
+        const self = this;
+        self.start = process.hrtime();
+    }
+&nbsp;
+    mark(tag) {
+        const self = this;
+        const timer = process.hrtime(self.start);
+        const elapsed = timer[1] / 1000000; // divide by a million to get nano to milli
+        self.marks.push({ tag: tag, time: `${timer[0]} s,  ${elapsed.toFixed(self.options.precision)} ms` });
+    }
+&nbsp;
+    log(message) {
+        const self = this;
+        let sOut = '';
+        _.each(self.marks, (mark) =&gt; {
+            sOut += `[ tag: ${mark.tag}  -  ${mark.time} ]`;
+        });
+        console.log(message ? (`${message} - ${sOut}`) : <span class="branch-1 cbranch-no" title="branch not covered" >sOut)</span>;
+    }
+}
+&nbsp;
+let internals = {
+    server: {},
+    random: {}
+};
+&nbsp;
+// Format
+internals.format = {};
+internals.format.prepareIdCard = function(idcard) {
+    return idcard.replace(/\D+/g,"");
+}
+&nbsp;
+// Crypto APIs Password
+internals.password = {};
+&nbsp;
+internals.password.genSalt = () =&gt; {
+<span class="cstat-no" title="statement not covered" >    return Bcrypt.genSaltSync(10);</span>
+};
+&nbsp;
+internals.password.hash = (password) =&gt; {
+    return Bcrypt.hashSync(password);
+};
+&nbsp;
+internals.password.compare = function(password, hashedPassword) {
+    return Bcrypt.compareSync(password, hashedPassword);
+};
+&nbsp;
+internals.password.create = () =&gt; {
+    let capsAlpha = "QWERTYUIOPASDFGHJKLZXCVBNM"[Math.floor(Math.random()*25)];
+    let extChar = "@#$%"[Math.floor(Math.random()*4)];
+    let newPassword = internals.random.guid().substring(0, 6) + capsAlpha + extChar;
+    let hashedNewPassword = internals.password.hash(newPassword);
+&nbsp;
+    return {
+        password: newPassword,
+        hash: hashedNewPassword
+    };
+};
+&nbsp;
+// ********************
+// Server
+// ********************
+&nbsp;
+// Reply View
+internals.server.view = (request, reply, url, context) =&gt; {
+    const response = request.response;
+    if (response.isBoom &amp;&amp; response.output.statusCode === 404) {
+        return reply.view(url, context);
+    }
+    return reply.continue();
+};
+&nbsp;
+// Reply with a file
+internals.server.file = (request, reply, url) =&gt; {
+    const response = request.response;
+    if (response.isBoom &amp;&amp; response.output.statusCode === 404) {
+        return reply.file(url);
+    }
+    return reply.continue();
+};
+&nbsp;
+internals.server.respond = <span class="fstat-no" title="function not covered" >function(request, reply, err, retData, headers) {</span>
+<span class="cstat-no" title="statement not covered" >    if(reply) {</span>
+<span class="cstat-no" title="statement not covered" >        const response = reply(err, retData);</span>
+<span class="cstat-no" title="statement not covered" >        if (headers) {</span>
+            // replace header values with provided values
+<span class="cstat-no" title="statement not covered" >            _.each(_.keys(headers), (h) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                response.header(h, headers[h]);</span>
+            });
+        }
+<span class="cstat-no" title="statement not covered" >        if (_.isFunction(response.code) &amp;&amp; !response.isBoom) {</span>
+<span class="cstat-no" title="statement not covered" >            response.code(err &amp;&amp; err.code ? err.code : 200);</span>
+        }
+    } else {
+<span class="cstat-no" title="statement not covered" >        console.log('*** Response ERROR: No more reply!');</span>
+<span class="cstat-no" title="statement not covered" >        console.dir(request);</span>
+<span class="cstat-no" title="statement not covered" >        console.dir(retData);</span>
+    }
+};
+&nbsp;
+internals.server.respond = function(request, reply, err, retData, headers, state) {
+    if(reply) {
+        const response = reply(err, retData);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (headers) {
+            // replace header values with provided values
+<span class="cstat-no" title="statement not covered" >            _.each(_.keys(headers), (h) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                response.header(h, headers[h]);</span>
+            });
+        }
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (_.isFunction(response.code) &amp;&amp; !response.isBoom) {
+            response.code(err &amp;&amp; err.code ? <span class="branch-0 cbranch-no" title="branch not covered" >err.code </span>: 200);
+        }
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(_.isObject(state)) {
+<span class="cstat-no" title="statement not covered" >            response.state(state.cookieKey, state.id, state.opts);</span>
+        }
+    } else {
+        console.log('*** Response ERROR: No more reply!');
+        console.dir(request);
+        console.dir(retData);
+    }
+};
+&nbsp;
+// ********************
+// Random
+// ********************
+&nbsp;
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+internals.random.S4 = function() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+};
+&nbsp;
+internals.random.guid = function(sep) {
+    let separator = (_.isUndefined(sep) ? '' : sep);
+    return (internals.random.S4() + internals.random.S4() + separator + internals.random.S4() + separator + internals.random.S4() + separator + internals.random.S4() + separator + internals.random.S4() + internals.random.S4() + internals.random.S4());
+};
+&nbsp;
+// ********************
+// Mixin
+// ********************
+internals.mixin = (inst, ...mixins) =&gt; {
+    _.each(mixins, (mixin) =&gt; {
+        let mixinMethods = typeof mixin === 'object' ? Object.getOwnPropertyNames(mixin) : Object.getOwnPropertyNames(mixin.prototype);
+        _.each(mixinMethods, (key) =&gt; {
+            if(key !== 'constructor') {
+                inst[key] = typeof mixin === 'object' ? mixin[key] : mixin.prototype[key];
+            }
+        });
+    });
+};
+&nbsp;
+// ********************
+// Sanitize (https://www.npmjs.com/package/sanitizer)
+// ********************
+&nbsp;
+internals.sanitize = {};
+&nbsp;
+internals.sanitize.string = (str) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return Sanitizer.sanitize(str);</span>
+};
+&nbsp;
+internals.sanitize.object = (obj, options) =&gt; {
+    // Set defaut options.
+    options = options || <span class="branch-1 cbranch-no" title="branch not covered" >{ skip: [] };</span>
+    options.skip = Object.prototype.toString.call(options.skip) === '[object Array]' ? options.skip : <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+&nbsp;
+    let doc = JSON.parse(JSON.stringify(obj));
+&nbsp;
+    // Sanitize every node in tree:
+    let sanitized = Traverse(doc).map(function (node) {
+        if (typeof node === 'string' &amp;&amp; options.skip.indexOf(this.key) === -1) {
+            let sanitizedNode = Sanitizer.sanitize(node);
+            this.update(sanitizedNode);
+        }
+    });
+&nbsp;
+    return sanitized;
+};
+&nbsp;
+module.exports = {
+    // format
+    format: internals.format,
+&nbsp;
+    // password
+    password: internals.password,
+&nbsp;
+    // Reply Functions
+    server: internals.server,
+&nbsp;
+    // TOTimer
+    TOTimer: TOTimer,
+&nbsp;
+    // GUID
+    random: internals.random,
+&nbsp;
+    // Mixin
+    mixin: internals.mixin,
+&nbsp;
+    // Sanitizer
+    sanitize: internals.sanitize
+};</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Jul 06 2017 23:25:01 GMT+0100 (IST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

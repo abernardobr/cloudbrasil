@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  cloudocr:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    ports:
+      - "80:80"
+

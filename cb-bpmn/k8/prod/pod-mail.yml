@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cloudocr
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: cloudocr
+    spec:
+      containers:
+      - name: cloudocr
+        image: us.gcr.io/cloud-169611/cloudocr:1.0.2
+        ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+        env:
+          - name: KUBER_SERVER_TYPE
+            value: "docker-prod"

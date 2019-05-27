@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  cloudocr:
+      restart: always
+      build:
+        context: .
+        dockerfile: Dockerfile-dev
+      ports:
+        - "3456:3456"
+
+  redis:
+    restart: always
+    image: "redis:alpine"
+    volumes:
+      - ./data/redis:/data
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+
+

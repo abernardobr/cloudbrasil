@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for security/domains/session/controllers/login.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">security/domains/session/controllers/</a> login.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >const _ = require('lodash');</span>
+<span class="cstat-no" title="statement not covered" >const HD = require('@docbrasil/tools');</span>
+<span class="cstat-no" title="statement not covered" >const Joi = require('joi');</span>
+<span class="cstat-no" title="statement not covered" >const Boom = require('boom');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >let internals = { };</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.ui = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.ui.login = <span class="fstat-no" title="function not covered" >function (request, reply) {</span></span>
+<span class="cstat-no" title="statement not covered" >    request.source = 'ui';</span>
+<span class="cstat-no" title="statement not covered" >    HD.users().login(request, <span class="fstat-no" title="function not covered" >function(retAuth) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(retAuth.auth) {</span>
+<span class="cstat-no" title="statement not covered" >            let jwtOpts = HD.serverconfig().jwt;</span>
+<span class="cstat-no" title="statement not covered" >            let stateOpts = { cookieKey: jwtOpts.cookieKey, id: request.user.sessionId, opts: jwtOpts.cookieOpts };</span>
+<span class="cstat-no" title="statement not covered" >            HD.utils().server.respond(request, reply, null, retAuth, null, stateOpts);</span>
+&nbsp;
+        } else {
+<span class="cstat-no" title="statement not covered" >            HD.utils().server.respond(request, reply, Boom.unauthorized('Invalid user or passaword.'), retAuth);</span>
+        }
+    });
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.ui.logout = <span class="fstat-no" title="function not covered" >function (request, reply) {</span></span>
+<span class="cstat-no" title="statement not covered" >    request.source = 'ui';</span>
+<span class="cstat-no" title="statement not covered" >    HD.users().logout(request, <span class="fstat-no" title="function not covered" >function(retResp) {</span></span>
+<span class="cstat-no" title="statement not covered" >        HD.utils().server.respond(request, reply, null, retResp);</span>
+    });
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.admin = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.admin.login = <span class="fstat-no" title="function not covered" >function (request, reply) {</span></span>
+<span class="cstat-no" title="statement not covered" >    request.source = 'admin';</span>
+<span class="cstat-no" title="statement not covered" >    HD.users().login(request, <span class="fstat-no" title="function not covered" >function(retAuth) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(retAuth.auth) {</span>
+<span class="cstat-no" title="statement not covered" >            let jwtOpts = HD.serverconfig().jwt;</span>
+<span class="cstat-no" title="statement not covered" >            let stateOpts = { cookieKey: jwtOpts.cookieKey, id: request.user.sessionId, opts: jwtOpts.cookieOpts };</span>
+<span class="cstat-no" title="statement not covered" >            HD.utils().server.respond(request, reply, null, retAuth, null, stateOpts);</span>
+&nbsp;
+        } else {
+<span class="cstat-no" title="statement not covered" >            HD.utils().server.respond(request, reply, Boom.unauthorized('Invalid user or passaword.'), retAuth);</span>
+        }
+    });
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >internals.admin.logout = <span class="fstat-no" title="function not covered" >function (request, reply) {</span></span>
+<span class="cstat-no" title="statement not covered" >    request.source = 'admin';</span>
+<span class="cstat-no" title="statement not covered" >    HD.users().logout(request, <span class="fstat-no" title="function not covered" >function(retResp) {</span></span>
+<span class="cstat-no" title="statement not covered" >        HD.utils().server.respond(request, reply, null, retResp);</span>
+    });
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >module.exports = {</span>
+    routes: [
+        {
+            method: 'POST',
+            path: '/login',
+            config: {
+                auth: { mode: 'optional' },
+                handler: internals.ui.login,
+                payload: { parse: true },
+                validate: {
+                    payload: {
+                        username: Joi.string().required(),
+                        password: Joi.string().required()
+                    }
+                },
+                description: 'Login the user',
+                notes: [
+                    'The password is clean text - Make sure to secure HTTPs for loging in',
+                    'Does not requires authentication'
+                ],
+                tags: ['session', 'users', 'login']
+            }
+        },
+        {
+            method: 'GET',
+            path: '/logout',
+            config: {
+                auth: { mode: 'required' },
+                handler: internals.ui.logout,
+                description: 'Logout the user',
+                notes: ['Does require authentication'],
+                tags: ['session', 'users', 'login']
+            }
+        },
+        {
+            method: 'POST',
+            path: '/admin/login',
+            config: {
+                auth: false,
+                handler: internals.admin.login,
+                payload: { parse: true },
+                validate: { payload: { username: Joi.string().required(), password: Joi.string().required() } },
+                description: 'Login the user',
+                notes: [
+                    'The password is clean text - Make sure to secure HTTPs for loging in',
+                    'Does not requires authentication'
+                ],
+                tags: ['session', 'users', 'login']
+            }
+        },
+        {
+            method: 'GET',
+            path: '/admin/logout',
+            config: {
+                auth: 'optional',
+                handler: internals.admin.logout,
+                description: 'Logout the user',
+                notes: ['Does not requires authentication'],
+                tags: ['session', 'users', 'login']
+            }
+        }
+    ]
+};
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Jul 06 2017 23:25:01 GMT+0100 (IST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
